@@ -7,30 +7,18 @@ using UtilityEnums;
 
 public class DropTable : MonoBehaviour
 {
-    private List<Drop> drops;
+    private List<Drop> _drops;
 
+    private void Awake() 
+    {
+        _drops = GetComponents<Drop>();
+    }
 
     public List<ItemObject> GenerateDrops()
     {
         List<ItemObject> generatedDrops = new List<ItemObject>();
-        var drops = GetComponents<Drop>();
-        foreach (var drop in drops)
+        foreach (var drop in _drops)
             generatedDrops.AddRange(drop.GenerateDrop());
-        
-        return generatedDrops;
-    }
-    
-    public List<ItemObject> GenerateLifeStageDrops(WorldObjectRegenerationStage stage)
-    {
-        List<ItemObject> generatedDrops = new List<ItemObject>();
-        var drops = GetComponents<Drop>();
-        foreach (var drop in drops)
-        {
-            if (drop.dropLifeStage == stage)
-            {
-                generatedDrops.AddRange(drop.GenerateDrop());
-            }
-        }
         
         return generatedDrops;
     }
